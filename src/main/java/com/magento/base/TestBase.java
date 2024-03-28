@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
+public abstract class TestBase {
 
     public static WebDriver driver;
     public static Properties prop;
@@ -21,7 +21,7 @@ public class TestBase {
             prop = new Properties();
 //            FileInputStream ip = new FileInputStream(System.getProperty("user.dir") +
 //                    "src/main/java/com/magento/config/config.properties");
-            FileInputStream ip = new FileInputStream("C:\\Users\\rezwankabir\\Desktop\\ESSPIAutomationJava\\src\\main\\java\\com\\magento\\config\\config.properties");
+            FileInputStream ip = new FileInputStream("C:\\Users\\REX\\Desktop\\arifvai2\\src\\main\\java\\com\\magento\\config\\config.properties");
             prop.load(ip);
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,11 +11,14 @@ public class LoginPage extends TestBase {
     //Page-Factory
 
     @FindBy(xpath = "//input[contains(@title,'Email')]")
+    @CacheLookup
     private WebElement email;
     @FindBy(xpath = "//input[contains(@title,'Password')]")
+    @CacheLookup
     private WebElement password;
 
     @FindBy(xpath = "//div[contains(@class,'actions-toolbar')]//ancestor::span[text()='Sign In']")
+    @CacheLookup
     private WebElement loginButton;
 
     @FindBy(xpath = "//h1[@class='page-title']//span[1]")
@@ -23,7 +26,15 @@ public class LoginPage extends TestBase {
 
     @FindBy(xpath = "//li[contains(@class,'authorization-link')]//parent::li//child::a[contains(text(),'Sign In')]")
     @CacheLookup
-    public WebElement signInHyperLink;
+    private WebElement signInHyperLink;
+
+    @FindBy(xpath = "//div[@data-ui-id='message-error']//div[1]")
+    @CacheLookup
+    private WebElement invalidLoginMsg;
+
+    @FindBy(xpath = "//div[contains(@class,'actions-toolbar')]//ancestor::span[text()='Create an Account']")
+    @CacheLookup
+    private WebElement createNewAccount;
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -41,11 +52,22 @@ public class LoginPage extends TestBase {
         return customLogInTitle.isDisplayed();
     }
 
-    public HomePage login(String userEmail, String userPassword) {
+    public String loginInvalid(String userEmail, String userPassword) {
         email.sendKeys(userEmail);
         password.sendKeys(userPassword);
         loginButton.click();
 
-        return new HomePage();
+        return invalidLoginMsg.getText();
+    }
+
+    public CreateAccountPage createNewAccount(){
+        createNewAccount.click();
+        return new CreateAccountPage();
+    }
+
+    public void loginValid(String userEmail, String userPassword) {
+        email.sendKeys(userEmail);
+        password.sendKeys(userPassword);
+        loginButton.click();
     }
 }
